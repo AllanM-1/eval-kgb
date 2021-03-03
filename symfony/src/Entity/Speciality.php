@@ -33,7 +33,7 @@ class Speciality
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Users", mappedBy="inSpeciality")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="inSpeciality")
      */
     private $agent;
 
@@ -63,14 +63,14 @@ class Speciality
     }
 
     /**
-     * @return Collection|Users[]
+     * @return Collection|User[]
      */
     public function getAgent(): Collection
     {
         return $this->agent;
     }
 
-    public function addAgent(Users $agent): self
+    public function addAgent(User $agent): self
     {
         if (!$this->agent->contains($agent)) {
             $this->agent[] = $agent;
@@ -80,7 +80,7 @@ class Speciality
         return $this;
     }
 
-    public function removeAgent(Users $agent): self
+    public function removeAgent(User $agent): self
     {
         if ($this->agent->removeElement($agent)) {
             $agent->removeInSpeciality($this);

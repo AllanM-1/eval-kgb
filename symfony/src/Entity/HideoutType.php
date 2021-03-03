@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * HideoutsType
+ * HideoutType
  *
- * @ORM\Table(name="hideouts_type")
+ * @ORM\Table(name="hideout_type")
  * @ORM\Entity
  */
-class HideoutsType
+class HideoutType
 {
     /**
      * @var int

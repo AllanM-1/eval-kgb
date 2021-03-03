@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Missions
+ * Mission
  *
- * @ORM\Table(name="missions", indexes={@ORM\Index(name="mission_spec_idx", columns={"spec"}), @ORM\Index(name="type_idx", columns={"type"})})
+ * @ORM\Table(name="mission", indexes={@ORM\Index(name="mission_spec_idx", columns={"spec"}), @ORM\Index(name="type_idx", columns={"type"})})
  * @ORM\Entity
  */
-class Missions
+class Mission
 {
     /**
      * @var int
@@ -83,9 +83,9 @@ class Missions
     private $spec;
 
     /**
-     * @var \MissionsType
+     * @var \MissionType
      *
-     * @ORM\ManyToOne(targetEntity="MissionsType")
+     * @ORM\ManyToOne(targetEntity="MissionType")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type", referencedColumnName="id")
      * })
@@ -95,7 +95,7 @@ class Missions
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Users", inversedBy="mission")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="mission")
      * @ORM\JoinTable(name="affected_to",
      *   joinColumns={
      *     @ORM\JoinColumn(name="mission_id", referencedColumnName="id")
@@ -110,7 +110,7 @@ class Missions
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Hideouts", inversedBy="mission")
+     * @ORM\ManyToMany(targetEntity="Hideout", inversedBy="mission")
      * @ORM\JoinTable(name="hide_in",
      *   joinColumns={
      *     @ORM\JoinColumn(name="mission_id", referencedColumnName="id")
@@ -232,12 +232,12 @@ class Missions
         return $this;
     }
 
-    public function getType(): ?MissionsType
+    public function getType(): ?MissionType
     {
         return $this->type;
     }
 
-    public function setType(?MissionsType $type): self
+    public function setType(?MissionType $type): self
     {
         $this->type = $type;
 
@@ -245,14 +245,14 @@ class Missions
     }
 
     /**
-     * @return Collection|Users[]
+     * @return Collection|User[]
      */
     public function getAffected(): Collection
     {
         return $this->affected;
     }
 
-    public function addAffected(Users $affected): self
+    public function addAffected(User $affected): self
     {
         if (!$this->affected->contains($affected)) {
             $this->affected[] = $affected;
@@ -261,7 +261,7 @@ class Missions
         return $this;
     }
 
-    public function removeAffected(Users $affected): self
+    public function removeAffected(User $affected): self
     {
         $this->affected->removeElement($affected);
 
@@ -269,14 +269,14 @@ class Missions
     }
 
     /**
-     * @return Collection|Hideouts[]
+     * @return Collection|Hideout[]
      */
     public function getHideout(): Collection
     {
         return $this->hideout;
     }
 
-    public function addHideout(Hideouts $hideout): self
+    public function addHideout(Hideout $hideout): self
     {
         if (!$this->hideout->contains($hideout)) {
             $this->hideout[] = $hideout;
@@ -285,7 +285,7 @@ class Missions
         return $this;
     }
 
-    public function removeHideout(Hideouts $hideout): self
+    public function removeHideout(Hideout $hideout): self
     {
         $this->hideout->removeElement($hideout);
 

@@ -7,19 +7,19 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Users
+ * User
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class Users
+class User
 {
     /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -27,8 +27,6 @@ class Users
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=0, nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $type;
 
@@ -70,7 +68,7 @@ class Users
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Missions", mappedBy="affected")
+     * @ORM\ManyToMany(targetEntity="Mission", mappedBy="affected")
      */
     private $mission;
 
@@ -106,6 +104,13 @@ class Users
     public function getType(): ?string
     {
         return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
     }
 
     public function getNom(): ?string
@@ -169,14 +174,14 @@ class Users
     }
 
     /**
-     * @return Collection|Missions[]
+     * @return Collection|Mission[]
      */
     public function getMission(): Collection
     {
         return $this->mission;
     }
 
-    public function addMission(Missions $mission): self
+    public function addMission(Mission $mission): self
     {
         if (!$this->mission->contains($mission)) {
             $this->mission[] = $mission;
@@ -186,7 +191,7 @@ class Users
         return $this;
     }
 
-    public function removeMission(Missions $mission): self
+    public function removeMission(Mission $mission): self
     {
         if ($this->mission->removeElement($mission)) {
             $mission->removeAffected($this);

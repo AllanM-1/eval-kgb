@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Hideouts
+ * Hideout
  *
- * @ORM\Table(name="hideouts")
+ * @ORM\Table(name="hideout")
  * @ORM\Entity
  */
-class Hideouts
+class Hideout
 {
     /**
      * @var string|null
@@ -57,11 +57,11 @@ class Hideouts
     private $type;
 
     /**
-     * @var \HideoutsType
+     * @var \HideoutType
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="HideoutsType")
+     * @ORM\OneToOne(targetEntity="HideoutType")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id", referencedColumnName="id")
      * })
@@ -71,7 +71,7 @@ class Hideouts
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Missions", mappedBy="hideout")
+     * @ORM\ManyToMany(targetEntity="Mission", mappedBy="hideout")
      */
     private $mission;
 
@@ -155,12 +155,12 @@ class Hideouts
         return $this;
     }
 
-    public function getId(): ?HideoutsType
+    public function getId(): ?HideoutType
     {
         return $this->id;
     }
 
-    public function setId(?HideoutsType $id): self
+    public function setId(?HideoutType $id): self
     {
         $this->id = $id;
 
@@ -168,14 +168,14 @@ class Hideouts
     }
 
     /**
-     * @return Collection|Missions[]
+     * @return Collection|Mission[]
      */
     public function getMission(): Collection
     {
         return $this->mission;
     }
 
-    public function addMission(Missions $mission): self
+    public function addMission(Mission $mission): self
     {
         if (!$this->mission->contains($mission)) {
             $this->mission[] = $mission;
@@ -185,7 +185,7 @@ class Hideouts
         return $this;
     }
 
-    public function removeMission(Missions $mission): self
+    public function removeMission(Mission $mission): self
     {
         if ($this->mission->removeElement($mission)) {
             $mission->removeHideout($this);
