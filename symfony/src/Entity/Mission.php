@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Mission
  *
  * @ORM\Table(name="mission", indexes={@ORM\Index(name="mission_spec_idx", columns={"spec"}), @ORM\Index(name="type_idx", columns={"type"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\MissionRepository")
  */
 class Mission
 {

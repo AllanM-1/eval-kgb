@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * MissionType
  *
  * @ORM\Table(name="mission_type")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\MissionTypeRepository")
  */
 class MissionType
 {

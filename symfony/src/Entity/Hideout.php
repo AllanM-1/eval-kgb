@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Hideout
  *
  * @ORM\Table(name="hideout")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\HideoutRepository")
  */
 class Hideout
 {

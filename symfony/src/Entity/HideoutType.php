@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * HideoutType
  *
  * @ORM\Table(name="hideout_type")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\HideoutTypeRepository")
  */
 class HideoutType
 {

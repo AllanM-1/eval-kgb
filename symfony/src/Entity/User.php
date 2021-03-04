@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User
 {
@@ -75,7 +75,7 @@ class User
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Speciality", inversedBy="agent")
+     * @ORM\ManyToMany(targetEntity="Speciality", inversedBy="agent", cascade={"persist"})
      * @ORM\JoinTable(name="specialized_in",
      *   joinColumns={
      *     @ORM\JoinColumn(name="agent_id", referencedColumnName="id")
