@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Hideout;
+use App\Entity\HideoutType;
+use App\Entity\Mission;
+use App\Entity\MissionType;
 use App\Entity\Speciality;
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -16,33 +20,8 @@ class UserController extends AbstractController
      */
     public function index(): Response
     {
-        /*$user = new User();
-        $user->setNom('MELIGNON');
-        $user->setPrenom('Allan');
-        $user->setType('agent');
-        $user->setNationality('Française');
-
-        $speciality = new Speciality();
-        $speciality->setName('Elimination par empoisonnement');
-
-        $user->addInSpeciality($speciality);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();*/
-
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
         ]);
     }
-
-    /**
-     * @Route("find-user")
-     */
-    public function findUser(UserRepository $userRepository): Response
-    {
-        dump($userRepository->findAll());
-        return new Response('<body></body>');
-    }
-
 }
