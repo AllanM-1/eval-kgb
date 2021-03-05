@@ -15,11 +15,11 @@ class MissionType
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_mission_type", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idMissionType;
 
     /**
      * @var string|null
@@ -28,9 +28,9 @@ class MissionType
      */
     private $name;
 
-    public function getId(): ?int
+    public function getIdMissionType(): ?int
     {
-        return $this->id;
+        return $this->idMissionType;
     }
 
     public function getName(): ?string

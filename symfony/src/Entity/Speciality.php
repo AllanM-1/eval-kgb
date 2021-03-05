@@ -17,11 +17,11 @@ class Speciality
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_spec", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idSpec;
 
     /**
      * @var string|null
@@ -45,9 +45,9 @@ class Speciality
         $this->agent = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getIdSpec(): ?int
     {
-        return $this->id;
+        return $this->idSpec;
     }
 
     public function getName(): ?string

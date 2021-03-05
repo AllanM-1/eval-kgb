@@ -17,11 +17,11 @@ class User
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_user", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idUser;
 
     /**
      * @var string
@@ -68,7 +68,7 @@ class User
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Mission", mappedBy="affected")
+     * @ORM\ManyToMany(targetEntity="Mission", mappedBy="affected", cascade={"persist"})
      */
     private $mission;
 
@@ -78,10 +78,10 @@ class User
      * @ORM\ManyToMany(targetEntity="Speciality", inversedBy="agent", cascade={"persist"})
      * @ORM\JoinTable(name="specialized_in",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="agent_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="agent_id", referencedColumnName="id_user")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="in_speciality_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="in_speciality_id", referencedColumnName="id_spec")
      *   }
      * )
      */
@@ -96,9 +96,9 @@ class User
         $this->inSpeciality = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getIdUser(): ?int
     {
-        return $this->id;
+        return $this->idUser;
     }
 
     public function getType(): ?string

@@ -15,11 +15,11 @@ class HideoutType
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_hideout_type", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idHideoutType;
 
     /**
      * @var string|null
@@ -28,9 +28,9 @@ class HideoutType
      */
     private $name;
 
-    public function getId(): ?int
+    public function getIdHideoutType(): ?int
     {
-        return $this->id;
+        return $this->idHideoutType;
     }
 
     public function getName(): ?string

@@ -9,11 +9,20 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Hideout
  *
- * @ORM\Table(name="hideout")
+ * @ORM\Table(name="hideout", indexes={@ORM\Index(name="hideouts_type_idx", columns={"type"})})
  * @ORM\Entity(repositoryClass="App\Repository\HideoutRepository")
  */
 class Hideout
 {
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_hideout", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idHideout;
+
     /**
      * @var string|null
      *
@@ -50,37 +59,33 @@ class Hideout
     private $country;
 
     /**
-     * @var int|null
+     * @var \HideoutType
      *
-     * @ORM\Column(name="type", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="HideoutType", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="type", referencedColumnName="id_hideout_type")
+     * })
      */
     private $type;
 
     /**
-     * @var \HideoutType
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="HideoutType")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
-     * })
-     */
-    private $id;
-
-    /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Mission", mappedBy="hideout")
+     * @ORM\ManyToMany(targetEntity="Mission", mappedBy="idHideout", cascade={"persist"})
      */
-    private $mission;
+    private $idMission;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->mission = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->idMission = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getIdHideout(): ?int
+    {
+        return $this->idHideout;
     }
 
     public function getCode(): ?string
@@ -143,26 +148,14 @@ class Hideout
         return $this;
     }
 
-    public function getType(): ?int
+    public function getType(): ?HideoutType
     {
         return $this->type;
     }
 
-    public function setType(?int $type): self
+    public function setType(?HideoutType $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getId(): ?HideoutType
-    {
-        return $this->id;
-    }
-
-    public function setId(?HideoutType $id): self
-    {
-        $this->id = $id;
 
         return $this;
     }
@@ -170,25 +163,25 @@ class Hideout
     /**
      * @return Collection|Mission[]
      */
-    public function getMission(): Collection
+    public function getIdMission(): Collection
     {
-        return $this->mission;
+        return $this->idMission;
     }
 
-    public function addMission(Mission $mission): self
+    public function addIdMission(Mission $idMission): self
     {
-        if (!$this->mission->contains($mission)) {
-            $this->mission[] = $mission;
-            $mission->addHideout($this);
+        if (!$this->idMission->contains($idMission)) {
+            $this->idMission[] = $idMission;
+            $idMission->addIdHideout($this);
         }
 
         return $this;
     }
 
-    public function removeMission(Mission $mission): self
+    public function removeIdMission(Mission $idMission): self
     {
-        if ($this->mission->removeElement($mission)) {
-            $mission->removeHideout($this);
+        if ($this->idMission->removeElement($idMission)) {
+            $idMission->removeIdHideout($this);
         }
 
         return $this;

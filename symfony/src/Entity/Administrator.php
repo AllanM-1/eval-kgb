@@ -15,11 +15,11 @@ class Administrator
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_admin", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idAdmin;
 
     /**
      * @var string|null
@@ -56,9 +56,9 @@ class Administrator
      */
     private $created;
 
-    public function getId(): ?int
+    public function getIdAdmin(): ?int
     {
-        return $this->id;
+        return $this->idAdmin;
     }
 
     public function getName(): ?string

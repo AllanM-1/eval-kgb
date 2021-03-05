@@ -17,11 +17,11 @@ class Mission
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_mission", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idMission;
 
     /**
      * @var string|null
@@ -75,9 +75,9 @@ class Mission
     /**
      * @var \Speciality
      *
-     * @ORM\ManyToOne(targetEntity="Speciality")
+     * @ORM\ManyToOne(targetEntity="Speciality", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="spec", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="spec", referencedColumnName="id_spec")
      * })
      */
     private $spec;
@@ -85,9 +85,9 @@ class Mission
     /**
      * @var \MissionType
      *
-     * @ORM\ManyToOne(targetEntity="MissionType")
+     * @ORM\ManyToOne(targetEntity="MissionType", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="type", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="type", referencedColumnName="id_mission_type")
      * })
      */
     private $type;
@@ -95,13 +95,13 @@ class Mission
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="mission")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="mission", cascade={"persist"})
      * @ORM\JoinTable(name="affected_to",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="mission_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="mission_id", referencedColumnName="id_mission")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="affected_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="affected_id", referencedColumnName="id_user")
      *   }
      * )
      */
@@ -110,17 +110,17 @@ class Mission
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Hideout", inversedBy="mission")
+     * @ORM\ManyToMany(targetEntity="Hideout", inversedBy="idMission", cascade={"persist"})
      * @ORM\JoinTable(name="hide_in",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="mission_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="id_mission", referencedColumnName="id_mission")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="hideout_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="id_hideout", referencedColumnName="id_hideout")
      *   }
      * )
      */
-    private $hideout;
+    private $idHideout;
 
     /**
      * Constructor
@@ -128,12 +128,12 @@ class Mission
     public function __construct()
     {
         $this->affected = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->hideout = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->idHideout = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getIdMission(): ?int
     {
-        return $this->id;
+        return $this->idMission;
     }
 
     public function getTitle(): ?string
@@ -271,23 +271,23 @@ class Mission
     /**
      * @return Collection|Hideout[]
      */
-    public function getHideout(): Collection
+    public function getIdHideout(): Collection
     {
-        return $this->hideout;
+        return $this->idHideout;
     }
 
-    public function addHideout(Hideout $hideout): self
+    public function addIdHideout(Hideout $idHideout): self
     {
-        if (!$this->hideout->contains($hideout)) {
-            $this->hideout[] = $hideout;
+        if (!$this->idHideout->contains($idHideout)) {
+            $this->idHideout[] = $idHideout;
         }
 
         return $this;
     }
 
-    public function removeHideout(Hideout $hideout): self
+    public function removeIdHideout(Hideout $idHideout): self
     {
-        $this->hideout->removeElement($hideout);
+        $this->idHideout->removeElement($idHideout);
 
         return $this;
     }
