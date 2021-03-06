@@ -22,6 +22,7 @@ class MissionService
 
         $result['total'] = $total;
         $result['totalNotFiltered'] = $total;
+        $result['rows'] = [];
         $missions = $this->missionRepository->findMissionsList($offset, $limit, $search);
         foreach ($missions as $mission) {
             $result['rows'][] = [
