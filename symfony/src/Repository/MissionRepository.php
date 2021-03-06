@@ -19,22 +19,21 @@ class MissionRepository extends ServiceEntityRepository
         parent::__construct($registry, Mission::class);
     }
 
-    // /**
-    //  * @return Mission[] Returns an array of Mission objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Mission[] Returns an array of Mission objects
+      */
+    public function findMissionsList(int $offset, int $limit)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+//            ->andWhere('m.title = :val')
+//            ->setParameter('val', $title)
+            ->orderBy('m.idMission', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Mission
