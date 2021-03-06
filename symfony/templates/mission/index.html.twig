@@ -5,12 +5,8 @@
 {% block body %}
 
 <style>
-    .select,
-    #locale {
-        width: 100%;
-    }
-    .like {
-        margin-right: 10px;
+    #missionstable tbody tr {
+        cursor: pointer;
     }
 </style>
 
@@ -18,13 +14,11 @@
     <div class="row">
         <div class="col">
             <table
-                    id="table"
+                    id="missionstable"
                     data-toolbar="#toolbar"
                     data-search="true"
                     data-show-columns="true"
                     data-show-columns-toggle-all="true"
-                    data-detail-view="true"
-                    data-click-to-select="true"
                     data-detail-formatter="detailFormatter"
                     data-minimum-count-columns="2"
                     data-pagination="true"
@@ -40,42 +34,15 @@
 </div>
 
 <script>
-    var $table = $('#table')
-    var $remove = $('#remove')
+    var $table = $('#missionstable')
     var selections = []
 
-    function getIdSelections() {
-        return $.map($table.bootstrapTable('getSelections'), function (row) {
-            return row.id
-        })
-    }
-
     function responseHandler(res) {
-        $.each(res.rows, function (i, row) {
+        $.each(res.rows, (i, row) => {
             row.state = $.inArray(row.id, selections) !== -1
         })
         return res
     }
-
-    function detailFormatter(index, row) {
-        var html = []
-        $.each(row, function (key, value) {
-            html.push('<p><b>' + key + ':</b> ' + value + '</p>')
-        })
-        return html.join('')
-    }
-
-    function totalTextFormatter(data) {
-        return 'Total'
-    }
-
-    function totalNameFormatter(data) {
-        return data.length
-    }
-
-    /*function linkFormatter(value, row) {
-        return "<a href='" + row.url + "'>" + row.nice_name + "</a>";
-    }*/
 
     function initTable() {
         $table.bootstrapTable('destroy').bootstrapTable({
@@ -123,12 +90,15 @@
                 ]
             ]
         })
+
+        // Event to load the modal description
+        $table.on('click-cell.bs.table', (field, value, row, $el) => {
+            console.log($el.idmission);
+        });
     }
 
     $(function() {
-        initTable()
-
-        $('#locale').change(initTable)
+        initTable();
     })
 </script>
 
