@@ -22,17 +22,49 @@ class MissionRepository extends ServiceEntityRepository
      /**
       * @return Mission[] Returns an array of Mission objects
       */
-    public function findMissionsList(int $offset, int $limit)
+    public function findMissionsList(int $offset, int $limit, string $search)
     {
-        return $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m');
 //            ->andWhere('m.title = :val')
 //            ->setParameter('val', $title)
-            ->orderBy('m.idMission', 'ASC')
-            ->setFirstResult($offset)
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult()
-        ;
+
+        // Search
+        if($search !== '') {
+            $queryBuilder->andWhere('m.title LIKE :search')
+                ->setParameter('search', '%'.$search.'%');
+        }
+
+        // Sort
+        $queryBuilder->orderBy('m.idMission', 'ASC');
+
+        // limit
+        $queryBuilder->setFirstResult($offset);
+        $queryBuilder->setMaxResults($limit);
+
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+
+    /**
+     * @return int Returns the count without limit filter
+     */
+    public function countMissionsList(string $search)
+    {
+        $result = 0;
+        $queryBuilder = $this->createQueryBuilder('m');
+        $queryBuilder->select('count(m.idMission)');
+
+        // Search
+        if($search !== '') {
+            $queryBuilder->andWhere('m.title LIKE :search')
+                ->setParameter('search', '%'.$search.'%');
+        }
+
+        // Sort
+        $queryBuilder->orderBy('m.idMission', 'ASC');
+
+        $query = $queryBuilder->getQuery();
+        return $query->getSingleScalarResult();
     }
 
     /*
