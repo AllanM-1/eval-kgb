@@ -31,6 +31,7 @@ class MissionRepository extends ServiceEntityRepository
         // Search
         if($search !== '') {
             $queryBuilder->andWhere('m.title LIKE :search')
+                ->orWhere('m.code LIKE :search')
                 ->setParameter('search', '%'.$search.'%');
         }
 
@@ -57,6 +58,7 @@ class MissionRepository extends ServiceEntityRepository
         // Search
         if($search !== '') {
             $queryBuilder->andWhere('m.title LIKE :search')
+                ->orWhere('m.code LIKE :search')
                 ->setParameter('search', '%'.$search.'%');
         }
 
