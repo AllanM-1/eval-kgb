@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Mission;
+use App\Entity\MissionType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -22,11 +24,10 @@ class MissionRepository extends ServiceEntityRepository
      /**
       * @return Mission[] Returns an array of Mission objects
       */
-    public function findMissionsList(int $offset, int $limit, string $search)
+    public function findMissionsList(int $offset, int $limit, string $search, string $sort, string $order)
     {
-        $queryBuilder = $this->createQueryBuilder('m');
-//            ->andWhere('m.title = :val')
-//            ->setParameter('val', $title)
+        $queryBuilder = $this->createQueryBuilder('m')
+            ->join('m.type', 'mt');
 
         // Search
         if($search !== '') {
@@ -36,12 +37,29 @@ class MissionRepository extends ServiceEntityRepository
         }
 
         // Sort
-        $queryBuilder->orderBy('m.idMission', 'ASC');
+        if($sort !== '' && $order !== '') {
+            switch ($sort) {
+                case 'code' :
+                case 'status' :
+                case 'title' :
+                case 'country' :
+                case 'start' :
+                case 'end' :
+                    $queryBuilder->orderBy('m.'.$sort, $order);
+                    break;
+                case 'type' :
+                    $queryBuilder->orderBy('mt.name', $order);
+                    break;
+                default :
+                    $queryBuilder->orderBy('m.idMission', 'ASC');
+            }
+        } else {
+            $queryBuilder->orderBy('m.idMission', 'ASC');
+        }
 
         // limit
         $queryBuilder->setFirstResult($offset);
         $queryBuilder->setMaxResults($limit);
-
         $query = $queryBuilder->getQuery();
         return $query->getResult();
     }

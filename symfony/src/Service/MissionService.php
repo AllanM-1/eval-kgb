@@ -16,14 +16,14 @@ class MissionService
     /**
      * Finds all missions
      */
-    public function getMissionsListforDataTable(int $offset, int $limit, string $search): array
+    public function getMissionsListforDataTable(int $offset, int $limit, string $search, string $sort, string $order): array
     {
         $total = $this->missionRepository->countMissionsList($search);
 
         $result['total'] = $total;
         $result['totalNotFiltered'] = $total;
         $result['rows'] = [];
-        $missions = $this->missionRepository->findMissionsList($offset, $limit, $search);
+        $missions = $this->missionRepository->findMissionsList($offset, $limit, $search, $sort, $order);
         foreach ($missions as $mission) {
             $result['rows'][] = [
                 'idmission' => $mission->getIdMission(),
@@ -34,10 +34,7 @@ class MissionService
                 'status' => $mission->getStatus(),
                 'start' => $mission->getStart()->format('d/m/Y'),
                 'end' => $mission->getEnd()->format('d/m/Y')
-                ];
-//            dump($mission);
-//
-//            dump($mission->getType()->getName());
+            ];
         }
         return $result;
     }
@@ -83,8 +80,7 @@ class MissionService
                 'name' => $user->getNom(),
                 'firstname' => $user->getPrenom(),
                 'born' => (!is_null($user->getBorn())) ? $user->getBorn()->format('d/m/Y') : null,
-                'nationality' => $user->getNationality(),
-//                'speciality' => $user->getInSpeciality()
+                'nationality' => $user->getNationality()
             ];
 
             foreach($user->getInSpeciality() as $speciality) {

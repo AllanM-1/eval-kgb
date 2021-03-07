@@ -28,11 +28,13 @@ class MissionController extends AbstractController
      */
     public function getMissions(MissionService $missionService, Request $request): Response
     {
-        $offset = $request->get('offset');
-        $limit = $request->get('limit');
-        $search = $request->get('search');
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 10);
+        $search = $request->get('search', '');
+        $sort = $request->get('sort', '');
+        $order = $request->get('order', '');
 
-        $missions = $missionService->getMissionsListforDataTable($offset, $limit, $search);
+        $missions = $missionService->getMissionsListforDataTable($offset, $limit, $search, $sort, $order);
         return new JsonResponse($missions);
     }
 
@@ -42,9 +44,6 @@ class MissionController extends AbstractController
     public function getMissionDetails(MissionService $missionService, int $idmission): Response
     {
         $mission = $missionService->getMissionDetails($idmission);
-//        dump($mission->getTitle());
-
-//        return new Response('<body></body>');
         return new JsonResponse($mission);
     }
 }
