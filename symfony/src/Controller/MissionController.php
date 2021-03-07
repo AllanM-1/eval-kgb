@@ -24,7 +24,7 @@ class MissionController extends AbstractController
     }
 
     /**
-     * @Route("/missions/get-missions")
+     * @Route("/mission/get-missions")
      */
     public function getMissions(MissionService $missionService, Request $request): Response
     {
@@ -33,8 +33,18 @@ class MissionController extends AbstractController
         $search = $request->get('search');
 
         $missions = $missionService->getMissionsListforDataTable($offset, $limit, $search);
-//        dump($missions);
-//        return new Response('<body></body>');
         return new JsonResponse($missions);
+    }
+
+    /**
+     * @Route("/mission/details/{idmission}")
+     */
+    public function getMissionDetails(MissionService $missionService, int $idmission): Response
+    {
+        $mission = $missionService->getMissionDetails($idmission);
+//        dump($mission->getTitle());
+
+//        return new Response('<body></body>');
+        return new JsonResponse($mission);
     }
 }

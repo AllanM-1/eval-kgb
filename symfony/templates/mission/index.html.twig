@@ -25,7 +25,7 @@
                     data-page-list="[10, 25, 50, 100, all]"
                     data-show-footer="false"
                     data-side-pagination="server"
-                    data-url="missions/get-missions"
+                    data-url="mission/get-missions"
                     data-search-highlight="true"
                     data-response-handler="responseHandler">
             </table>
@@ -33,9 +33,33 @@
     </div>
 </div>
 
+{% include  'mission/details.html.twig' %}
+
 <script>
     var $table = $('#missionstable')
     var selections = []
+
+    // To display the status badge
+    const displayMissionStatus = (status) => {
+        let formatedStatus = '';
+
+        switch (status) {
+            case 'inpreparation' :
+                formatedStatus = '<span class="badge badge-secondary">In preparation</span>';
+                break;
+            case 'inprogress' :
+                formatedStatus = '<span class="badge badge-warning">In progress</span>';
+                break;
+            case 'completed' :
+                formatedStatus = '<span class="badge badge-success">Completed</span>';
+                break;
+            case 'failed' :
+                formatedStatus = '<span class="badge badge-danger">Failed</span>';
+                break;
+        }
+
+        return formatedStatus;
+    }
 
     function responseHandler(res) {
         $.each(res.rows, (i, row) => {
@@ -55,6 +79,12 @@
                         title: 'Code',
                         sortable: true,
                         align: 'center'
+                    },{
+                        field: 'status',
+                        title: 'Status',
+                        sortable: true,
+                        align: 'center',
+                        formatter: displayMissionStatus
                     },{
                         field: 'title',
                         title: 'Title',
@@ -85,9 +115,67 @@
             ]
         })
 
-        // Event to load the modal description
+        // Event to load the modal details
         $table.on('click-cell.bs.table', (field, value, row, $el) => {
-            console.log($el.idmission);
+            $.getJSON( 'mission/details/'+$el.idmission, (data) => {
+                $('#detailsMissionModalLabel').text(data.title);
+                let missionContent = '';
+
+                // Missions infos
+                missionContent += `
+                    <div class="container-fluid">
+                        <div class="row">
+                            <label class="col-sm-2">Status</label>
+                            <div class="col-sm-10">
+                                ${displayMissionStatus(data.status)}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2">Code</label>
+                            <div class="col-sm-10">
+                                ${data.code}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2">Country</label>
+                            <div class="col-sm-10">
+                                ${data.country}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2">Type</label>
+                            <div class="col-sm-10">
+                                ${data.type}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2">Speciality</label>
+                            <div class="col-sm-10">
+                                ${data.speciality}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2">Start</label>
+                            <div class="col-sm-10">
+                                ${data.start}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2">End</label>
+                            <div class="col-sm-10">
+                                ${data.end}
+                            </div>
+                        </div>
+                    `;
+                $('#detailsMissionModal .modal-body').html(missionContent);
+
+                /*$.each( data, function( key, val ) {
+                    items.push( "<li id='" + key + "'>" + val + "</li>" );
+                });*/
+                console.log(data);
+                // $("#detailsMissionModal .modal-body").text(result);
+                $('#detailsMissionModal').modal('toggle')
+            });
         });
     }
 
