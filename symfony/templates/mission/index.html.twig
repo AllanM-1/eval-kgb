@@ -81,7 +81,6 @@
 
     function initTable() {
         $table.bootstrapTable('destroy').bootstrapTable({
-            height: 550,
             locale: 'en-US',
             columns: [
                 [
@@ -135,56 +134,57 @@
 
                 // Missions infos
                 missionContent += `
-                    <div class="container-fluid">
-                        <div class="row">
-                            <label class="col-sm-2">Status</label>
-                            <div class="col-sm-10">
-                                ${displayMissionStatus(data.status)}
-                            </div>
+                    <div class="row">
+                        <label class="col-sm-2">Status</label>
+                        <div class="col-sm-10">
+                            ${displayMissionStatus(data.status)}
                         </div>
-                        <div class="row">
-                            <label class="col-sm-2">Code</label>
-                            <div class="col-sm-10">
-                                ${data.code}
-                            </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2">Code</label>
+                        <div class="col-sm-10">
+                            ${data.code}
                         </div>
-                        <div class="row">
-                            <label class="col-sm-2">Country</label>
-                            <div class="col-sm-10">
-                                ${displayMissionCountry(data.country)}
-                            </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2">Country</label>
+                        <div class="col-sm-10">
+                            ${displayMissionCountry(data.country)}
                         </div>
-                        <div class="row">
-                            <label class="col-sm-2">Type</label>
-                            <div class="col-sm-10">
-                                ${data.type}
-                            </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2">Type</label>
+                        <div class="col-sm-10">
+                            ${data.type}
                         </div>
-                        <div class="row">
-                            <label class="col-sm-2">Speciality</label>
-                            <div class="col-sm-10">
-                                ${data.speciality}
-                            </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2">Speciality</label>
+                        <div class="col-sm-10">
+                            ${data.speciality}
                         </div>
-                        <div class="row">
-                            <label class="col-sm-2">Start</label>
-                            <div class="col-sm-10">
-                                ${data.start}
-                            </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2">Start</label>
+                        <div class="col-sm-10">
+                            ${data.start}
                         </div>
-                        <div class="row">
-                            <label class="col-sm-2">End</label>
-                            <div class="col-sm-10">
-                                ${data.end}
-                            </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2">End</label>
+                        <div class="col-sm-10">
+                            ${data.end}
                         </div>
-                    `;
+                    </div>
+                `;
 
-                /*$.each( data, function( key, val ) {
-                    items.push( "<li id='" + key + "'>" + val + "</li>" );
-                });*/
+                // Mission's Hideouts
+                $.each(data.hideout, function(key, val) {
+
+                    console.log( "<li id='" + key + "'>" + val.code + "</li>" );
+                });
                 console.log(data);
-                $('#detailsMissionModal .modal-body').html(missionContent);
+                $('#detailsMissionModal .modal-body').html('<div class="container-fluid">'+missionContent+'</div>');
                 $('#detailsMissionModal').modal('toggle')
             });
         });
