@@ -135,6 +135,11 @@
                 // Missions infos
                 missionContent += `
                     <div class="row">
+                        <div class="col-sm-12 pb-3">
+                            ${data.description}
+                        </div>
+                    </div>
+                    <div class="row">
                         <label class="col-sm-2">Status</label>
                         <div class="col-sm-10">
                             ${displayMissionStatus(data.status)}
@@ -179,11 +184,39 @@
                 `;
 
                 // Mission's Hideouts
-                $.each(data.hideout, function(key, val) {
-
-                    console.log( "<li id='" + key + "'>" + val.code + "</li>" );
+                missionContent += (data.hideout !== undefined && Object.keys(data.hideout).length) ?
+                    '<h5 class="mt-4"><i class="fa fa-map-marker"></i> Hideouts</h5>' : '';
+                $.each(data.hideout, function(key, location) {
+                    missionContent += `
+                        <div class="row border-top">
+                            <label class="col-sm-3">${location.code} - ${location.type}</label>
+                            <div class="col-sm-9">
+                                ${location.address} - ${location.postcode} ${location.city} ${displayMissionCountry(location.country)}
+                            </div>
+                        </div>
+                    `;
                 });
-                console.log(data);
+
+                // Mission's agents
+                missionContent += (data.user !== undefined && Object.keys(data.user).length) ?
+                    '<h5 class="mt-4"><i class="fa fa-user-secret"></i> Person entities</h5>' : '';
+
+                $.each(data.user, function(key, user) {
+                    let userSpec = '';
+                    if(user.type === 'agent' && Object.keys(user.speciality).length) {
+                        userSpec = '<br /><small>'+Object.values(user.speciality).join(' / ')+'</small>';
+                    }
+
+                    missionContent += `
+                    <div class="row border-top">
+                        <label class="col-sm-3">${user.type[0].toUpperCase() + user.type.substring(1)} - ${user.code}</label>
+                        <div class="col-sm-9">
+                            ${user.name} ${user.firstname} - ${user.nationality} (${user.born})${userSpec}
+                        </div>
+                    </div>
+                    `;
+                });
+
                 $('#detailsMissionModal .modal-body').html('<div class="container-fluid">'+missionContent+'</div>');
                 $('#detailsMissionModal').modal('toggle')
             });
