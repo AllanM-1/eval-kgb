@@ -8,6 +8,10 @@
     #missionstable tbody tr {
         cursor: pointer;
     }
+
+    #detailsMissionModal label {
+        font-weight: bold;
+    }
 </style>
 
 <div class="container">
@@ -41,24 +45,31 @@
 
     // To display the status badge
     const displayMissionStatus = (status) => {
-        let formatedStatus = '';
+        let formattedStatus = '';
 
         switch (status) {
             case 'inpreparation' :
-                formatedStatus = '<span class="badge badge-secondary">In preparation</span>';
+                formattedStatus = '<span class="badge badge-secondary">In preparation</span>';
                 break;
             case 'inprogress' :
-                formatedStatus = '<span class="badge badge-warning">In progress</span>';
+                formattedStatus = '<span class="badge badge-warning">In progress</span>';
                 break;
             case 'completed' :
-                formatedStatus = '<span class="badge badge-success">Completed</span>';
+                formattedStatus = '<span class="badge badge-success">Completed</span>';
                 break;
             case 'failed' :
-                formatedStatus = '<span class="badge badge-danger">Failed</span>';
+                formattedStatus = '<span class="badge badge-danger">Failed</span>';
                 break;
         }
 
-        return formatedStatus;
+        return formattedStatus;
+    }
+
+    // To display the flag country
+    const displayMissionCountry = (iso) => {
+        let formattedCountry;
+        formattedCountry = '<img src="images/country/'+iso.toLowerCase()+'.png" />';
+        return formattedCountry;
     }
 
     function responseHandler(res) {
@@ -94,7 +105,8 @@
                         field: 'country',
                         title: 'Country',
                         sortable: true,
-                        align: 'center'
+                        align: 'center',
+                        formatter: displayMissionCountry
                     },{
                         field: 'type',
                         title: 'Type',
@@ -139,7 +151,7 @@
                         <div class="row">
                             <label class="col-sm-2">Country</label>
                             <div class="col-sm-10">
-                                ${data.country}
+                                ${displayMissionCountry(data.country)}
                             </div>
                         </div>
                         <div class="row">
@@ -167,13 +179,12 @@
                             </div>
                         </div>
                     `;
-                $('#detailsMissionModal .modal-body').html(missionContent);
 
                 /*$.each( data, function( key, val ) {
                     items.push( "<li id='" + key + "'>" + val + "</li>" );
                 });*/
                 console.log(data);
-                // $("#detailsMissionModal .modal-body").text(result);
+                $('#detailsMissionModal .modal-body').html(missionContent);
                 $('#detailsMissionModal').modal('toggle')
             });
         });
