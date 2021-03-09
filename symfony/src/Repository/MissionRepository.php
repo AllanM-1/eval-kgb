@@ -24,7 +24,7 @@ class MissionRepository extends ServiceEntityRepository
      /**
       * @return Mission[] Returns an array of Mission objects
       */
-    public function findMissionsList(int $offset, int $limit, string $search, string $sort, string $order)
+    public function findMissionsList(int $offset, int $limit, string $search, string $sort, string $order, string $status, string $country, string $type)
     {
         $queryBuilder = $this->createQueryBuilder('m')
             ->join('m.type', 'mt');
@@ -57,6 +57,20 @@ class MissionRepository extends ServiceEntityRepository
             $queryBuilder->orderBy('m.idMission', 'ASC');
         }
 
+        // Filters
+        if($status !== '') {
+            $queryBuilder->andWhere('m.status = :status')
+                ->setParameter('status', $status);
+        }
+        if($country !== '') {
+            $queryBuilder->andWhere('m.country = :country')
+                ->setParameter('country', $country);
+        }
+        if($type !== '') {
+            $queryBuilder->andWhere('m.type = :type')
+                ->setParameter('type', $type);
+        }
+
         // limit
         $queryBuilder->setFirstResult($offset);
         $queryBuilder->setMaxResults($limit);
@@ -67,7 +81,7 @@ class MissionRepository extends ServiceEntityRepository
     /**
      * @return int Returns the count without limit filter
      */
-    public function countMissionsList(string $search)
+    public function countMissionsList(string $search, string $status, string $country, string $type)
     {
         $result = 0;
         $queryBuilder = $this->createQueryBuilder('m');
@@ -80,11 +94,45 @@ class MissionRepository extends ServiceEntityRepository
                 ->setParameter('search', '%'.$search.'%');
         }
 
+        // Filters
+        if($status !== '') {
+            $queryBuilder->andWhere('m.status = :status')
+                ->setParameter('status', $status);
+        }
+        if($country !== '') {
+            $queryBuilder->andWhere('m.country = :country')
+                ->setParameter('country', $country);
+        }
+        if($type !== '') {
+            $queryBuilder->andWhere('m.type = :type')
+                ->setParameter('type', $type);
+        }
+
         // Sort
         $queryBuilder->orderBy('m.idMission', 'ASC');
 
         $query = $queryBuilder->getQuery();
         return $query->getSingleScalarResult();
+    }
+
+    public function findStatusValues()
+    {
+        $queryBuilder = $this->createQueryBuilder('m');
+        $queryBuilder->distinct(true);
+        $queryBuilder->select('m.status');
+        $queryBuilder->orderBy('m.status', 'ASC');
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+
+    public function findCountryValues()
+    {
+        $queryBuilder = $this->createQueryBuilder('m');
+        $queryBuilder->distinct(true);
+        $queryBuilder->select('m.country');
+        $queryBuilder->orderBy('m.country', 'ASC');
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
     }
 
     /*

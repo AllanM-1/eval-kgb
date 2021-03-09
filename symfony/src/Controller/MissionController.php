@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Mission;
 use App\Repository\MissionRepository;
+use App\Repository\MissionTypeRepository;
 use App\Service\MissionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +17,17 @@ class MissionController extends AbstractController
     /**
      * @Route("/missions", name="missions")
      */
-    public function index(): Response
+    public function index(MissionRepository $missionRepository, MissionTypeRepository $missionTypeRepository, MissionService $missionService): Response
     {
+        $missionStatusValues = $missionService->getStatusValues();
+        $missionCountryValues = $missionService->getCountryValues();
+        $missionTypeValues = $missionTypeRepository->findAll();
+
         return $this->render('mission/index.html.twig', [
             'controller_name' => 'MissionController',
+            'status' => $missionStatusValues,
+            'countries' => $missionCountryValues,
+            'types' => $missionTypeValues
         ]);
     }
 
@@ -33,8 +41,11 @@ class MissionController extends AbstractController
         $search = $request->get('search', '');
         $sort = $request->get('sort', '');
         $order = $request->get('order', '');
+        $status = $request->get('status', '');
+        $country = $request->get('country', '');
+        $type = $request->get('type', '');
 
-        $missions = $missionService->getMissionsListforDataTable($offset, $limit, $search, $sort, $order);
+        $missions = $missionService->getMissionsListforDataTable($offset, $limit, $search, $sort, $order, $status, $country, $type);
         return new JsonResponse($missions);
     }
 

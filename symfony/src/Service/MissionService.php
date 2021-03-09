@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Repository\MissionRepository;
+use Symfony\Component\Intl\Languages;
 
 class MissionService
 {
@@ -16,14 +17,14 @@ class MissionService
     /**
      * Finds all missions
      */
-    public function getMissionsListforDataTable(int $offset, int $limit, string $search, string $sort, string $order): array
+    public function getMissionsListforDataTable(int $offset, int $limit, string $search, string $sort, string $order, string $status, string $country, string $type): array
     {
-        $total = $this->missionRepository->countMissionsList($search);
+        $total = $this->missionRepository->countMissionsList($search, $status, $country, $type);
 
         $result['total'] = $total;
         $result['totalNotFiltered'] = $total;
         $result['rows'] = [];
-        $missions = $this->missionRepository->findMissionsList($offset, $limit, $search, $sort, $order);
+        $missions = $this->missionRepository->findMissionsList($offset, $limit, $search, $sort, $order, $status, $country, $type);
         foreach ($missions as $mission) {
             $result['rows'][] = [
                 'idmission' => $mission->getIdMission(),
@@ -89,5 +90,63 @@ class MissionService
         }
 
         return $result;
+    }
+
+    /**
+     * @return array return the text formatted list of available missions status
+     */
+    public function getStatusValues(): array
+    {
+        $resultStatus = [];
+        $missionStatusValues = $this->missionRepository->findStatusValues();
+
+        foreach($missionStatusValues as $stat) {
+            $statusKey = $stat['status'];
+            $resultStatus[$statusKey] = MissionService::getTextStatus($statusKey);
+        }
+
+        return $resultStatus;
+    }
+
+    /**
+     * @param $status
+     * @return string convert the status value to status text
+     */
+    public static function getTextStatus($status)
+    {
+        $formattedStatus = "";
+
+        switch ($status) {
+            case 'inpreparation' :
+                $formattedStatus = 'In preparation';
+                break;
+            case 'inprogress' :
+                $formattedStatus = 'In progress';
+                break;
+            case 'completed' :
+                $formattedStatus = 'Completed';
+                break;
+            case 'failed' :
+                $formattedStatus = 'Failed';
+                break;
+        }
+
+        return $formattedStatus;
+    }
+
+    /**
+     * @return array return the text formatted list of available country status
+     */
+    public function getCountryValues(): array
+    {
+        $resultCountries = [];
+        $missionCountryValues = $this->missionRepository->findCountryValues();
+
+        foreach($missionCountryValues as $country) {
+            $countryKey = $country['country'];
+            $resultCountries[$countryKey] = Languages::getName(strtolower($countryKey));
+        }
+
+        return $resultCountries;
     }
 }
