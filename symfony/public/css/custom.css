@@ -1,0 +1,13 @@
+#missionstable tbody tr {
+    cursor: pointer;
+}
+
+#detailsMissionModal label {
+    font-weight: bold;
+}
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}

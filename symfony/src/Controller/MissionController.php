@@ -57,4 +57,21 @@ class MissionController extends AbstractController
         $mission = $missionService->getMissionDetails($idmission);
         return new JsonResponse($mission);
     }
+
+    /**
+     * @Route("/admin/missions", name="admin_missions")
+     */
+    public function adminMissions(MissionRepository $missionRepository, MissionTypeRepository $missionTypeRepository, MissionService $missionService): Response
+    {
+        $missionStatusValues = $missionService->getStatusValues();
+        $missionCountryValues = $missionService->getCountryValues();
+        $missionTypeValues = $missionTypeRepository->findAll();
+
+        return $this->render('admin/missions.html.twig', [
+            'controller_name' => 'MissionController',
+            'status' => $missionStatusValues,
+            'countries' => $missionCountryValues,
+            'types' => $missionTypeValues
+        ]);
+    }
 }
