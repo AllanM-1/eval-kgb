@@ -38,7 +38,7 @@ const displayMissionStatus = (status) => {
 // To display the flag country
 const displayMissionCountry = (iso) => {
     let formattedCountry;
-    formattedCountry = '<img src="images/country/'+iso.toLowerCase()+'.png" />';
+    formattedCountry = '<img src="/images/country/'+iso.toLowerCase()+'.png" />';
     return formattedCountry;
 }
 
