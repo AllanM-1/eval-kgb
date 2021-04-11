@@ -6,6 +6,7 @@ use App\Entity\Mission;
 use App\Repository\MissionRepository;
 use App\Repository\MissionTypeRepository;
 use App\Service\MissionService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,6 +61,7 @@ class MissionController extends AbstractController
 
     /**
      * @Route("/admin/missions", name="admin_missions")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function adminMissions(MissionRepository $missionRepository, MissionTypeRepository $missionTypeRepository, MissionService $missionService): Response
     {
