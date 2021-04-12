@@ -28,7 +28,7 @@ class HideoutController extends AbstractController
     }
 
     /**
-     * @Route("/admin/hideout-add", name="hideout_add")
+     * @Route("/admin/hideout/add", name="hideout_add")
      * @IsGranted("ROLE_ADMIN")
      */
     public function addHideout(Request $request, HideoutTypeRepository $hideoutTypeRepository): Response
