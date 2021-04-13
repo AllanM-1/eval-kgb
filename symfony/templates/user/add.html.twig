@@ -3,13 +3,14 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
+
 <div class="container">
-    <div class="row mb-2">
+    <div class="row">
         <div class="col">
-            <a class="btn btn-primary" href="{{ path('user_add') }}" role="button">
-                <i class="fas fa-plus"></i> Add user
-            </a>
+            <h1>Add user</h1>
+            {{ form(form) }}
         </div>
     </div>
 </div>
+
 {% endblock %}
