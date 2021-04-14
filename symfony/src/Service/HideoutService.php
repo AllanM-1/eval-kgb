@@ -4,23 +4,27 @@
 namespace App\Service;
 
 
-use App\Repository\HideoutTypeRepository;
+use App\Repository\HideoutRepository;
 
 class HideoutService
 {
-    private $hideoutTypeRepository;
+    private $hideoutRepository;
 
-    public function __construct(HideoutTypeRepository $hideoutTypeRepository)
+    public function __construct(HideoutRepository $hideoutRepository)
     {
-        $this->hideoutTypeRepository = $hideoutTypeRepository;
+        $this->hideoutRepository = $hideoutRepository;
     }
 
     public function getChoices(): array
     {
         $result = [];
-        $types = $this->hideoutTypeRepository->findAll();
+        $types = $this->hideoutRepository->findAll();
         foreach ($types as $type) {
-            $result[$type->getName()] = $type->getIdHideoutType();
+            $result[
+                $type->getAddress()." ".
+                $type->getPostcode()." ".
+                $type->getCity()
+            ] = $type->getIdHideout();
         }
 
         return $result;

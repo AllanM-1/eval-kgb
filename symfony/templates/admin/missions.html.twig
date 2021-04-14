@@ -11,6 +11,11 @@
                 <div class="float-left">
                     <div class="row">
                         <div class="col pr-1">
+                            <a class="btn btn-primary w-100 mt-2" href="{{ path('mission_add') }}" role="button">
+                                <i class="fas fa-plus"></i> New
+                            </a>
+                        </div>
+                        <div class="col px-1">
                             <select class="form-control mt-2" id="statusFilter">
                                 <option value="">Status</option>
                                 {% for key, stat in status %}

@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Hideout;
-use App\Repository\HideoutRepository;
+
 use App\Form\HideoutType;
 use App\Repository\HideoutTypeRepository;
-use App\Service\HideoutService;
+use App\Service\HideoutTypeService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -33,7 +32,7 @@ class HideoutController extends AbstractController
      */
     public function addHideout(Request $request, HideoutTypeRepository $hideoutTypeRepository): Response
     {
-        $hideoutTypes = new HideoutService($hideoutTypeRepository);
+        $hideoutTypes = new HideoutTypeService($hideoutTypeRepository);
 
         $form = $this->createForm(HideoutType::class,
             null,
