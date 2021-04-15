@@ -33,11 +33,11 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Missions', 'fa fa-user', Mission::class);
-        yield MenuItem::linkToCrud('Missions types', 'fa fa-user', MissionType::class);
-        yield MenuItem::linkToCrud('Hideouts', 'fa fa-user', Hideout::class);
-        yield MenuItem::linkToCrud('Hideout types', 'fa fa-user', HideoutType::class);
-        yield MenuItem::linkToCrud('Specialities', 'fa fa-user', Speciality::class);
-        yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
+        yield MenuItem::linkToCrud('Missions', 'fa fa-suitcase', Mission::class);
+        yield MenuItem::linkToCrud('Missions types', 'fa fa-suitcase', MissionType::class);
+        yield MenuItem::linkToCrud('Hideouts', 'fa fa-eye-slash', Hideout::class);
+        yield MenuItem::linkToCrud('Hideout types', 'fa fa-eye-slash', HideoutType::class);
+        yield MenuItem::linkToCrud('Specialities', 'fa fa-trophy', Speciality::class);
+        yield MenuItem::linkToCrud('Users', 'fa fa-users', User::class);
     }
 }
