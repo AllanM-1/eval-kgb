@@ -31,7 +31,7 @@ class UserCrudController extends AbstractCrudController
             DateField::new('born'),
             TextField::new('code'),
             TextField::new('nationality'),
-            AssociationField::new('inSpeciality')
+            AssociationField::new('inSpeciality', 'Specialities')
         ];
     }
 }

@@ -41,10 +41,10 @@ class MissionCrudController extends AbstractCrudController
             ]),
             DateField::new('start'),
             DateField::new('end'),
-            AssociationField::new('spec'),
+            AssociationField::new('spec', 'Speciality'),
             AssociationField::new('type'),
-            AssociationField::new('affected'),
-            AssociationField::new('idHideout')
+            AssociationField::new('affected', 'Affected to'),
+            AssociationField::new('idHideout', 'Hideouts')
         ];
     }
 }
