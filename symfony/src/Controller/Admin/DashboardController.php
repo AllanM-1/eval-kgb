@@ -56,6 +56,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Specialities', 'fa fa-trophy', Speciality::class);
         yield MenuItem::linkToCrud('Users', 'fa fa-users', User::class);
         yield MenuItem::section("Link");
-        yield MenuItem::linkToRoute('To front office','fa fa-home', 'missions');
+        yield MenuItem::linkToRoute('To frontoffice','fa fa-arrow-circle-o-left', 'missions');
     }
 }
