@@ -21,13 +21,28 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        $missions = $this->getDoctrine()->getRepository(Mission::class)->count([]);
+        $missionTypes = $this->getDoctrine()->getRepository(MissionType::class)->count([]);
+        $hideouts = $this->getDoctrine()->getRepository(Hideout::class)->count([]);
+        $hideoutTypes = $this->getDoctrine()->getRepository(HideoutType::class)->count([]);
+        $specialities = $this->getDoctrine()->getRepository(Speciality::class)->count([]);
+        $users = $this->getDoctrine()->getRepository(User::class)->count([]);
+
+        return $this->render('Admin/dashboard.html.twig', [
+            'page_title' => 'Dashboard',
+            'missions' => $missions,
+            'mission_types' => $missionTypes,
+            'hideouts' => $hideouts,
+            'hideout_types' => $hideoutTypes,
+            'specialities' => $specialities,
+            'users' => $users,
+        ]);
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Symfony');
+            ->setTitle('KGB');
     }
 
     public function configureMenuItems(): iterable
