@@ -1,0 +1,37 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block main %}
+    <section class="content-header">
+        <div class="d-flex flex-row justify-content-between align-content-center w-100">
+            <div class="content-header-title">
+                <div class="title">{{ page_title }}</div>
+            </div>
+        </div>
+    </section>
+    <section id="main" class="content-body">
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        Database contents
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fa fa-suitcase"></i> {{ missions }} missions with {{ mission_types }} mission types
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa fa-eye-slash"></i> {{ hideouts }} hideouts with {{ hideout_types }} hideout types
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa fa-trophy"></i> {{ specialities }} specialities
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa fa-users"></i> {{ users }} users
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </section>
+{% endblock %}

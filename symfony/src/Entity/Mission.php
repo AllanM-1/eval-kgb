@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
+use App\Validator\MinAgent;
+use App\Validator\SameCountry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Mission
@@ -46,7 +49,6 @@ class Mission
 
     /**
      * @var string|null
-     *
      * @ORM\Column(name="country", type="string", length=2, nullable=true, options={"fixed"=true})
      */
     private $country;
@@ -104,6 +106,7 @@ class Mission
      *     @ORM\JoinColumn(name="affected_id", referencedColumnName="id_user")
      *   }
      * )
+     * @MinAgent()
      */
     private $affected;
 
@@ -119,6 +122,7 @@ class Mission
      *     @ORM\JoinColumn(name="id_hideout", referencedColumnName="id_hideout")
      *   }
      * )
+     * @SameCountry()
      */
     private $idHideout;
 
@@ -292,4 +296,8 @@ class Mission
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
 }

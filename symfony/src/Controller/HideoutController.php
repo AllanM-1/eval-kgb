@@ -58,4 +58,6 @@ class HideoutController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+
 }
