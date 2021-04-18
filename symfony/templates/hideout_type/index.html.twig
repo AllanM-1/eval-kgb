@@ -1,0 +1,30 @@
+{% extends 'admin/base.admin.html.twig' %}
+
+{% block title %}Hello HideoutTypeController!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col">
+                <h1>Hideout types</h1>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('hideout') }}">Hideouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Hideout types</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary" href="{{ path('hideout_type_add') }}" role="button">
+                    <i class="fas fa-plus"></i> New
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

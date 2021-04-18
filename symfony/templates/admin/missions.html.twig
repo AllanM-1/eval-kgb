@@ -1,0 +1,70 @@
+{% extends 'admin/base.admin.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Missions</h1>
+                <div class="float-left">
+                    <div class="row">
+                        <div class="col pr-1">
+                            <a class="btn btn-primary w-100 mt-2" href="{{ path('mission_add') }}" role="button">
+                                <i class="fas fa-plus"></i> New
+                            </a>
+                        </div>
+                        <div class="col px-1">
+                            <select class="form-control mt-2" id="statusFilter">
+                                <option value="">Status</option>
+                                {% for key, stat in status %}
+                                    <option value="{{ key }}">{{ stat }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col px-1">
+                            <select class="form-control mt-2" id="countryFilter">
+                                <option value="">Country</option>
+                                {% for key, country in countries %}
+                                    <option value="{{ key }}">{{ country }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col px-1">
+                            <select class="form-control mt-2" id="typeFilter">
+                                <option value="">Type</option>
+                                {% for type in types %}
+                                    <option value="{{ type.idMissionType }}">{{ type.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <table
+                        id="missionstable"
+                        data-toolbar="#toolbar"
+                        data-search="true"
+                        data-show-columns="true"
+                        data-show-columns-toggle-all="true"
+                        data-detail-formatter="detailFormatter"
+                        data-pagination="true"
+                        data-id-field="id"
+                        data-page-list="[10, 25, 50, 100, all]"
+                        data-show-footer="false"
+                        data-side-pagination="server"
+                        data-url="/mission/get-missions"
+                        data-search-highlight="true"
+                        data-query-params="queryParams"
+                        data-response-handler="responseHandler">
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% include  'mission/details.html.twig' %}
+
+    <script src="{{ asset('js/missions.js') }}"></script>
+</div>
+{% endblock %}
