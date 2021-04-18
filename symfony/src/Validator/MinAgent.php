@@ -16,4 +16,5 @@ class MinAgent extends Constraint
      */
     public $message = 'A mission need at least one agent with the same speciality.';
     public $messageNationality = 'The contact "{{ value }}" isn\'t in the same country than the misson.';
+    public $messageTargetAgent = 'A target can\'t have the same nationality than an agent.';
 }

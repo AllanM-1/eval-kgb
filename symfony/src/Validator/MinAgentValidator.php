@@ -22,6 +22,25 @@ class MinAgentValidator extends ConstraintValidator
             }
         }
 
+        // Check the not same nationality of target/agent
+        $targetNatio = [];
+        $agentNatio = [];
+        foreach ($value as $user) {
+
+            if($user->getType() == 'target') {
+                $targetNatio[] = $user->getNationality();
+            }
+            if($user->getType() == 'agent') {
+                $agentNatio[] = $user->getNationality();
+            }
+
+        }
+
+        if(count(array_intersect($targetNatio, $agentNatio))) {
+            $this->context->buildViolation($constraint->messageTargetAgent)
+                ->addViolation();
+        }
+
         // Return if we found the first agent
         foreach ($value as $user) {
             $missionSpec = [];
