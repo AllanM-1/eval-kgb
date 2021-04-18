@@ -6,6 +6,7 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -30,7 +31,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('prenom'),
             DateField::new('born'),
             TextField::new('code'),
-            TextField::new('nationality'),
+            CountryField::new('nationality'),
             AssociationField::new('inSpeciality', 'Specialities')
         ];
     }

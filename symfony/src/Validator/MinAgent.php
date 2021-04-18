@@ -15,4 +15,5 @@ class MinAgent extends Constraint
      * Then, use these in your validator class.
      */
     public $message = 'A mission need at least one agent with the same speciality.';
+    public $messageNationality = 'The contact "{{ value }}" isn\'t in the same country than the misson.';
 }

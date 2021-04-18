@@ -13,6 +13,15 @@ class MinAgentValidator extends ConstraintValidator
     {
         /* @var $constraint \App\Validator\MinAgent */
 
+        // Check the country and the nationality of the contact
+        foreach ($value as $user) {
+            if ($user->getType() == 'contact' && $user->getNationality() != $this->context->getRoot()->getData()->getCountry()) {
+                $this->context->buildViolation($constraint->messageNationality)
+                    ->setParameter('{{ value }}', $user->getNom().' '.$user->getPrenom())
+                    ->addViolation();
+            }
+        }
+
         // Return if we found the first agent
         foreach ($value as $user) {
             $missionSpec = [];
@@ -25,7 +34,6 @@ class MinAgentValidator extends ConstraintValidator
             }
         }
 
-        // TODO: implement the validation here
         $this->context->buildViolation($constraint->message)
             ->addViolation();
     }
