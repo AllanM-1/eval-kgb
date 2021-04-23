@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -27,6 +28,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=0, nullable=false)
+     * @Assert\Choice({"contact", "agent", "target"})
      */
     private $type;
 
@@ -34,6 +36,7 @@ class User
      * @var string|null
      *
      * @ORM\Column(name="nom", type="string", length=50, nullable=true)
+     * @Assert\NotNull()
      */
     private $nom;
 
@@ -41,6 +44,7 @@ class User
      * @var string|null
      *
      * @ORM\Column(name="prenom", type="string", length=50, nullable=true)
+     * @Assert\NotNull()
      */
     private $prenom;
 
@@ -48,6 +52,7 @@ class User
      * @var \DateTime|null
      *
      * @ORM\Column(name="born", type="datetime", nullable=true)
+     * @Assert\NotNull()
      */
     private $born;
 
@@ -55,6 +60,7 @@ class User
      * @var string|null
      *
      * @ORM\Column(name="code", type="string", length=20, nullable=true)
+     * @Assert\NotNull()
      */
     private $code;
 
@@ -62,6 +68,8 @@ class User
      * @var string|null
      *
      * @ORM\Column(name="nationality", type="string", length=45, nullable=true)
+     * @Assert\Country()
+     * @Assert\NotNull()
      */
     private $nationality;
 
@@ -84,6 +92,7 @@ class User
      *     @ORM\JoinColumn(name="in_speciality_id", referencedColumnName="id_spec")
      *   }
      * )
+     * @Assert\Count(min=1)
      */
     private $inSpeciality;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Hideout
@@ -27,6 +28,7 @@ class Hideout
      * @var string|null
      *
      * @ORM\Column(name="code", type="string", length=20, nullable=true)
+     * @Assert\NotNull()
      */
     private $code;
 
@@ -34,6 +36,7 @@ class Hideout
      * @var string|null
      *
      * @ORM\Column(name="address", type="string", length=60, nullable=true)
+     * @Assert\NotNull()
      */
     private $address;
 
@@ -41,6 +44,7 @@ class Hideout
      * @var string|null
      *
      * @ORM\Column(name="postcode", type="string", length=16, nullable=true)
+     * @Assert\NotNull()
      */
     private $postcode;
 
@@ -48,6 +52,7 @@ class Hideout
      * @var string|null
      *
      * @ORM\Column(name="city", type="string", length=60, nullable=true)
+     * @Assert\NotNull()
      */
     private $city;
 
@@ -55,6 +60,7 @@ class Hideout
      * @var string|null
      *
      * @ORM\Column(name="country", type="string", length=2, nullable=true, options={"fixed"=true})
+     * @Assert\NotNull()
      */
     private $country;
 
@@ -65,6 +71,7 @@ class Hideout
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type", referencedColumnName="id_hideout_type")
      * })
+     * @Assert\NotNull()
      */
     private $type;
 
