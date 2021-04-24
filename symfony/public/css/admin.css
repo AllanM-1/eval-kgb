@@ -1,0 +1,9 @@
+:root {
+    --color-primary: #0e025f;
+    --link-color: #0e025f;
+}
+
+.page-item.active .page-link {
+    background-color: #0e025f;
+    border-color: #0e025f;
+}

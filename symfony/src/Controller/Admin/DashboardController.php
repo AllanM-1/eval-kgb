@@ -8,6 +8,7 @@ use App\Entity\Mission;
 use App\Entity\MissionType;
 use App\Entity\Speciality;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -57,5 +58,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Users', 'fa fa-users', User::class);
         yield MenuItem::section("Link");
         yield MenuItem::linkToRoute('To front-office','fa fa-arrow-circle-o-left', 'missions');
+    }
+
+    public function configureAssets(): Assets
+    {
+        return Assets::new()->addCssFile('css/admin.css');
     }
 }
