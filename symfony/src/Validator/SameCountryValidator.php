@@ -12,7 +12,7 @@ class SameCountryValidator extends ConstraintValidator
         /* @var $constraint \App\Validator\SameCountry */
 
         foreach ($value as $hideout) {
-            if($hideout->getCountry() != $this->context->getRoot()->getData()->getCountry()) {
+            if($hideout->getCountry() !== $this->context->getRoot()->getData()->getCountry()) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ value }}', $hideout->getAddress().' '.$hideout->getPostcode().' '.$hideout->getCity())
                     ->addViolation();
