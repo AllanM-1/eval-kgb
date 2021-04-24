@@ -4,6 +4,19 @@
 
 {% block body %}
 
+<header>
+    <div class="container mb-3 py-4">
+        <div class="row">
+            <div class="col">
+                <img src="{{ asset('images/Emblema_KGB.svg') }}" alt="KGB" height="160" />
+            </div>
+            <div class="col text-right">
+                <h1>КГБ, Комитет государственной безопасности</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -51,17 +64,21 @@
                     data-url="mission/get-missions"
                     data-search-highlight="true"
                     data-query-params="queryParams"
-                    data-response-handler="responseHandler">
+                    data-response-handler="responseHandler"
+                    class="table table-light">
             </table>
         </div>
     </div>
+</div>
+
+<footer class="bg-secondary py-5 mt-3">
     <div class="row">
         <div class="col text-center">
-            <a href="{{ path('admin') }}" class="btn btn-secondary">
+            <a href="{{ path('admin') }}" class="btn btn-light">
                 <i class="fas fa-user-lock"></i> Administration</a>
         </div>
     </div>
-</div>
+</footer>
 
 {% include  'mission/details.html.twig' %}
 
