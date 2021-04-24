@@ -48,8 +48,10 @@ class MinAgentValidator extends ConstraintValidator
                 $missionSpec[] = $spec->getIdSpec();
             }
 
-            if($user->getType() == 'agent' && in_array($this->context->getRoot()->getData()->getSpec()->getIdSpec(), $missionSpec)) {
-                return;
+            if(!is_null($this->context->getRoot()->getData()->getSpec())) {
+                if($user->getType() == 'agent' && in_array($this->context->getRoot()->getData()->getSpec()->getIdSpec(), $missionSpec)) {
+                    return;
+                }
             }
         }
 
