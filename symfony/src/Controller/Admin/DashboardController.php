@@ -29,7 +29,7 @@ class DashboardController extends AbstractDashboardController
         $specialities = $this->getDoctrine()->getRepository(Speciality::class)->count([]);
         $users = $this->getDoctrine()->getRepository(User::class)->count([]);
 
-        return $this->render('Admin/dashboard.html.twig', [
+        return $this->render('admin/dashboard.html.twig', [
             'page_title' => 'Dashboard',
             'missions' => $missions,
             'mission_types' => $missionTypes,
