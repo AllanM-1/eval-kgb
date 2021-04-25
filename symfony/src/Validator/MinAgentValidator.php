@@ -15,7 +15,7 @@ class MinAgentValidator extends ConstraintValidator
 
         // Check the country and the nationality of the contact
         foreach ($value as $user) {
-            if ($user->getType() == 'contact' && $user->getNationality() != $this->context->getRoot()->getData()->getCountry()) {
+            if ($user->getType() === 'contact' && $user->getNationality() !== $this->context->getRoot()->getData()->getCountry()) {
                 $this->context->buildViolation($constraint->messageNationality)
                     ->setParameter('{{ value }}', $user->getNom().' '.$user->getPrenom())
                     ->addViolation();
@@ -30,7 +30,7 @@ class MinAgentValidator extends ConstraintValidator
             if($user->getType() == 'target') {
                 $targetNatio[] = $user->getNationality();
             }
-            if($user->getType() == 'agent') {
+            if($user->getType() === 'agent') {
                 $agentNatio[] = $user->getNationality();
             }
 
@@ -48,8 +48,10 @@ class MinAgentValidator extends ConstraintValidator
                 $missionSpec[] = $spec->getIdSpec();
             }
 
-            if($user->getType() == 'agent' && in_array($this->context->getRoot()->getData()->getSpec()->getIdSpec(), $missionSpec)) {
-                return;
+            if(!is_null($this->context->getRoot()->getData()->getSpec())) {
+                if($user->getType() == 'agent' && in_array($this->context->getRoot()->getData()->getSpec()->getIdSpec(), $missionSpec)) {
+                    return;
+                }
             }
         }
 

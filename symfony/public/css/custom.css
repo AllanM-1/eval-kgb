@@ -1,3 +1,13 @@
+body {
+    background-color: #e3e7ed;
+}
+
+header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    border-top: 4px solid #cb0000;
+}
+
 #missionstable tbody tr {
     cursor: pointer;
 }
@@ -10,4 +20,13 @@
     max-width: 330px;
     padding: 15px;
     margin: auto;
+}
+
+.page-item.active .page-link {
+    background-color: #0e025f;
+    border-color: #0e025f;
+}
+
+.page-link {
+    color: #0e025f;
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * MissionType
@@ -25,6 +26,7 @@ class MissionType
      * @var string|null
      *
      * @ORM\Column(name="name", type="string", length=60, nullable=true)
+     * @Assert\NotNull()
      */
     private $name;
 

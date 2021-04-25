@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Repository\MissionRepository;
+use Symfony\Component\Intl\Countries;
 use Symfony\Component\Intl\Languages;
 
 class MissionService
@@ -144,7 +145,7 @@ class MissionService
 
         foreach($missionCountryValues as $country) {
             $countryKey = $country['country'];
-            $resultCountries[$countryKey] = Languages::getName(strtolower($countryKey));
+            $resultCountries[$countryKey] = Countries::getName(strtoupper($countryKey), 'en');
         }
 
         return $resultCountries;

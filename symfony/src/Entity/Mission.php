@@ -30,6 +30,7 @@ class Mission
      * @var string|null
      *
      * @ORM\Column(name="title", type="string", length=150, nullable=true)
+     * @Assert\NotNull()
      */
     private $title;
 
@@ -37,6 +38,7 @@ class Mission
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", length=16777215, nullable=true)
+     * @Assert\NotNull()
      */
     private $description;
 
@@ -44,12 +46,15 @@ class Mission
      * @var string|null
      *
      * @ORM\Column(name="code", type="string", length=20, nullable=true)
+     * @Assert\NotNull()
      */
     private $code;
 
     /**
      * @var string|null
      * @ORM\Column(name="country", type="string", length=2, nullable=true, options={"fixed"=true})
+     * @Assert\NotNull()
+     * @Assert\Country
      */
     private $country;
 
@@ -57,6 +62,7 @@ class Mission
      * @var string|null
      *
      * @ORM\Column(name="status", type="string", length=0, nullable=true)
+     * @Assert\Choice({"inpreparation", "inprogress", "completed", "failed"})
      */
     private $status;
 
@@ -81,6 +87,7 @@ class Mission
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="spec", referencedColumnName="id_spec")
      * })
+     * @Assert\NotNull()
      */
     private $spec;
 
@@ -91,6 +98,7 @@ class Mission
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type", referencedColumnName="id_mission_type")
      * })
+     * @Assert\NotNull()
      */
     private $type;
 
@@ -122,6 +130,7 @@ class Mission
      *     @ORM\JoinColumn(name="id_hideout", referencedColumnName="id_hideout")
      *   }
      * )
+     * @Assert\NotNull()
      * @SameCountry()
      */
     private $idHideout;
