@@ -92,7 +92,6 @@ class User
      *     @ORM\JoinColumn(name="in_speciality_id", referencedColumnName="id_spec")
      *   }
      * )
-     * @Assert\Count(min=1)
      */
     private $inSpeciality;
 
