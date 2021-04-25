@@ -21,3 +21,12 @@ header {
     padding: 15px;
     margin: auto;
 }
+
+.page-item.active .page-link {
+    background-color: #0e025f;
+    border-color: #0e025f;
+}
+
+.page-link {
+    color: #0e025f;
+}
