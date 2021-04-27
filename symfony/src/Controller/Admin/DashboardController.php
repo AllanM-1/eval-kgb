@@ -36,6 +36,15 @@ class DashboardController extends AbstractDashboardController
             $this->getDoctrine()->getRepository(Mission::class)->count(['status' => 'failed'])
         ];
 
+        $columnChart = [
+            $missions,
+            $missionTypes,
+            $hideouts,
+            $hideoutTypes,
+            $specialities,
+            $users
+        ];
+
         return $this->render('admin/dashboard.html.twig', [
             'page_title' => 'Dashboard',
             'missions' => $missions,
@@ -45,6 +54,7 @@ class DashboardController extends AbstractDashboardController
             'specialities' => $specialities,
             'users' => $users,
             'pie_chart' => json_encode($pieChart),
+            'column_chart' => json_encode($columnChart),
         ]);
     }
 

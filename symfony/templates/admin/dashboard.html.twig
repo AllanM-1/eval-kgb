@@ -9,6 +9,16 @@
         </div>
     </section>
     <section id="main" class="content-body">
+        <div class="row mb-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+
+                    </div>
+                    <div id="column-chart"></div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -69,7 +79,54 @@
             }]
         };
 
+        var optionsCol = {
+            series: [{
+                name: 'Count',
+                data: {{ column_chart }}
+            }],
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '45%',
+                    endingShape: 'rounded'
+                },
+            },
+            colors: ['#0e025f'],
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: ['Missions', 'Missions types', 'Hideouts', 'Hideout types', 'Specialities', 'Users'],
+            },
+            yaxis: {
+                title: {
+                    text: 'Entities'
+                }
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val + " entities"
+                    }
+                }
+            }
+        };
+
         $(function() {
+            var chartCol = new ApexCharts(document.querySelector("#column-chart"), optionsCol);
+            chartCol.render();
             var chart = new ApexCharts(document.querySelector("#pie-chart"), options);
             chart.render();
         });
