@@ -29,6 +29,13 @@ class DashboardController extends AbstractDashboardController
         $specialities = $this->getDoctrine()->getRepository(Speciality::class)->count([]);
         $users = $this->getDoctrine()->getRepository(User::class)->count([]);
 
+        $pieChart = [
+            $this->getDoctrine()->getRepository(Mission::class)->count(['status' => 'inpreparation']),
+            $this->getDoctrine()->getRepository(Mission::class)->count(['status' => 'inprogress']),
+            $this->getDoctrine()->getRepository(Mission::class)->count(['status' => 'completed']),
+            $this->getDoctrine()->getRepository(Mission::class)->count(['status' => 'failed'])
+        ];
+
         return $this->render('admin/dashboard.html.twig', [
             'page_title' => 'Dashboard',
             'missions' => $missions,
@@ -37,6 +44,7 @@ class DashboardController extends AbstractDashboardController
             'hideout_types' => $hideoutTypes,
             'specialities' => $specialities,
             'users' => $users,
+            'pie_chart' => json_encode($pieChart),
         ]);
     }
 
@@ -62,6 +70,8 @@ class DashboardController extends AbstractDashboardController
 
     public function configureAssets(): Assets
     {
-        return Assets::new()->addCssFile('css/admin.css');
+        return Assets::new()->addCssFile('css/admin.css')
+            ->addCssFile('css/apexcharts.css')
+            ->addJsFile('js/apexcharts.min.js');
     }
 }
